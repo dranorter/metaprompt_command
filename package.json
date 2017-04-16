@@ -1,0 +1,21 @@
+{
+  "name": "metaprompt_cli",
+  "version": "0.8.0",
+  "description": "An elegant generalization.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "prompt"
+  ],
+  "author": "Demski",
+  "license": "ISC",
+  "bin": {
+    "metaprompt": "./index.js"
+  },
+  "dependencies": {
+    "tracery-grammar": "^2.7.3",
+    "vorpal": "^1.12.0"
+  }
+}
