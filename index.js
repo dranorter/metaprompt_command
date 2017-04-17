@@ -48,6 +48,8 @@ promptlist = "meta"
 prompts = tracery.createGrammar(grammar);
 p = prompts.flatten("#"+promptlist+"#");
 
+//TODO: Add Tracery's standard modifiers, and a ".body" modifier which grabs *just the body* of a prompt, ignoring stuff after DEFAULT: or after other tags we migt use (such as COUNT: to count how many times it's been used) (using grammar.addModifiers)
+
 // Give a prompt
 prompttext = p.split("DEFAULT:")[0];
 vorpal.log(prompttext)
