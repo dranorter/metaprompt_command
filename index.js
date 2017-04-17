@@ -2,6 +2,7 @@
 
 var vorpal = require('vorpal')();
 var tracery = require('tracery-grammar');
+var chalk = require('chalk');
 //var grammar = require('./grammar.js');
 //var text = require('./text.js');
 var fs = require('fs');
@@ -54,7 +55,7 @@ vorpal.log(prompttext)
 // Note the destination
 dest = p.split(' ')[1];//TODO This only works when the zeroth token is 'to'...
 //vorpal.delimiter('↩ '+dest+': ');
-vorpal.delimiter(promptlist+':');
+vorpal.delimiter(chalk.green(promptlist+':'));
 
 // Default reply
 defrep = p.split("DEFAULT:").slice(1).join("DEFAULT:");
@@ -82,7 +83,7 @@ vorpal
 	this.log("Switching to list \""+args.list+'"');
 	newPrompt();
 	this.log(prompttext);
-	vorpal.delimiter(promptlist+':');
+	vorpal.delimiter(chalk.green(promptlist+':'));
 	callback();
     });
 
