@@ -12,7 +12,7 @@ var grammar = {
 
 curfile = '~/metaprompt-session.json';
 vorpal.history('metaprompt_command');
-vorpal.log("Welcome to\n __  __     _        ___                    _   _ \n|  \/  |___| |_ __ _| _ \_ _ ___ _ __  _ __| |_| |\n| |\/| / -_)  _/ _` |  _/ '_/ _ \ '  \| '_ \  _|_|\n|_|  |_\___|\__\__,_|_| |_| \___/_|_|_| .__/\__(_)\n                                      |_|         \n\n")
+vorpal.log("Welcome to\n __  __     _        ___                    _   _ \n|  \\/  |___| |_ __ _| _ \\_ _ ___ _ __  _ __| |_| |\n| |\\/| / -_)  _/ _` |  _/ '_/ _ \\ '  \\| '_ \\  _|_|\n|_|  |_\\___|\\__\\__,_|_| |_| \\___/_|_|_| .__/\\__(_)\n                                      |_|         \n\n");
 
 vorpal
     .command('save <file>', "Saves the prompts to a file.")
