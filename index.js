@@ -8,9 +8,10 @@ var chalk = require('chalk');
 var fs = require('fs');
 
 var grammar = {//TODO: More instructional prompts.
-    "meta" : ["What do you want to do?\nWrite a prompt which tells you to write a prompt which tells you to do that thing.DEFAULT:to meta add Your command to write a command goes hereDEFAULT:to meta add",
-	      "What do you want to do?\nWrite a prompt which tells you to do it.DEFAULT:to meta add thing to do goes hereDEFAULT:to ??? add"]
-};
+  "start" : ["What do you want to do?\nWrite a word or short phrase describing a goal which you think MetaPrompt could help you with, and press enter. The \"to goals add\" which you have as default text in your text field is a command which sends what you type after it to the \"goals\" list. You can modify this if you'd like to send to a different list; the list name you give will automatically be created if it does not already exist.\nWhen you are finished brainstorming goals, you can press the down arrow to erase the \"to goals\" command, and write \"use meta\" to get help writing prompts for the goals you've created.\nOr, if you've already created a prompt list which you want to use, you can use the command \"use <list>\" to switch to it now.\nType \"help\" if you wish to see a list of all commands.DEFAULT:to goals add"],
+  "meta_text" : ["Write a prompt which will help you with the following goal: #goals1#\nWriting a prompt is a little more involved than writing a simple response. Notice that we still have the to/add command, with \"#goals1#\" as the default destination. However, a prompt can also have a default response; that is how we're helpfully filling in things for you. You'll usually want to help yourself out in the same way, giving at least a default location to send responses to a particular prompt. (You should replace (destination list) with a reasonable destination!)DEFAULT:to #goals1# send (write a prompt here!) DEFAULT: to (destination list) send"],
+  "meta" : ["#[goals1:#goals#]meta_text#"]
+  };
 
 curfile = './metaprompt-session.json';
 vorpal.history('metaprompt_command');
@@ -43,7 +44,7 @@ try {
 }
 catch (err) {}
 
-promptlist = "meta"
+promptlist = "start"
 
 prompts = tracery.createGrammar(grammar);
 p = prompts.flatten("#"+promptlist+"#");
