@@ -17,6 +17,9 @@ curfile = './metaprompt-session.json';
 vorpal.history('metaprompt_command');
 vorpal.log("Welcome to\n __  __     _        ___                    _   _ \n|  \\/  |___| |_ __ _| _ \\_ _ ___ _ __  _ __| |_| |\n| |\\/| / -_)  _/ _` |  _/ '_/ _ \\ '  \\| '_ \\  _|_|\n|_|  |_\\___|\\__\\__,_|_| |_| \\___/_|_|_| .__/\\__(_)\n                                      |_|         \n\n");
 
+// A list of text with special meaning/behavior
+reserved = ["DEFAULT:"]
+
 vorpal
     .command('save <file>', "Saves the prompts to a file.")
     .action(function(args, callback) {
@@ -47,16 +50,25 @@ catch (err) {}
 promptlist = "start"
 
 prompts = tracery.createGrammar(grammar);
-// Add Tracery's standard modifiers
+// We combine Tracery's standard modifiers with a couple custom ones.
 modifiers = Object.assign(tracery.baseEngModifiers,{
     eval : function(s) {
 	// Idea is to enable something functionally like ##thing##,
 	// ie, flatten "thing" and then expand the result.
 	return prompts.flatten("#"+s+"#");
+    },
+    body : function(s) {
+	cleaned = s;
+	for (w in reserved) {
+	    // grabs *just the body* of a prompt, ignoring stuff after DEFAULT: or after other tags we might use (TODO: such as COUNT: to count how many times it's been used)
+	    cleaned = cleaned.split(w)[0]
+	}
+	return cleaned
     }
 })
+// then add the modifiers
 prompts.addModifiers(modifiers)
-//TODO: Add a ".body" modifier which grabs *just the body* of a prompt, ignoring stuff after DEFAULT: or after other tags we migt use (such as COUNT: to count how many times it's been used) (using grammar.addModifiers)
+
 
 p = prompts.flatten("#"+promptlist+"#");
 
