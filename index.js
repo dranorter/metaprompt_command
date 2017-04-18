@@ -47,9 +47,18 @@ catch (err) {}
 promptlist = "start"
 
 prompts = tracery.createGrammar(grammar);
-p = prompts.flatten("#"+promptlist+"#");
+// Add Tracery's standard modifiers
+modifiers = Object.assign(tracery.baseEngModifiers,{
+    eval : function(s) {
+	// Idea is to enable something functionally like ##thing##,
+	// ie, flatten "thing" and then expand the result.
+	return prompts.flatten("#"+s+"#");
+    }
+})
+prompts.addModifiers(modifiers)
+//TODO: Add a ".body" modifier which grabs *just the body* of a prompt, ignoring stuff after DEFAULT: or after other tags we migt use (such as COUNT: to count how many times it's been used) (using grammar.addModifiers)
 
-//TODO: Add Tracery's standard modifiers, and a ".body" modifier which grabs *just the body* of a prompt, ignoring stuff after DEFAULT: or after other tags we migt use (such as COUNT: to count how many times it's been used) (using grammar.addModifiers)
+p = prompts.flatten("#"+promptlist+"#");
 
 // Give a prompt
 prompttext = p.split("DEFAULT:")[0];
@@ -142,6 +151,7 @@ vorpal
 
 function newPrompt() {
     prompts = tracery.createGrammar(grammar);
+    prompts.addModifiers(modifiers)
     p = prompts.flatten("#"+promptlist+"#");
     // Say it...
     prompttext = p.split("DEFAULT:")[0]
