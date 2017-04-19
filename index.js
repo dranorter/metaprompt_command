@@ -39,7 +39,9 @@ vorpal
 
 
 // Process command line input now
-vorpal.parse(process.argv);
+// TODO: Processing it now limits command line functionality,
+// yet, I want to load the right grammar here. Hmm.
+//vorpal.parse(process.argv);
 
 //load the default session
 try {
@@ -60,7 +62,7 @@ modifiers = Object.assign(tracery.baseEngModifiers,{
     body : function(s) {
 	cleaned = s;
 	for (w in reserved) {
-	    // grabs *just the body* of a prompt, ignoring stuff after DEFAULT: or after other tags we might use (TODO: such as COUNT: to count how many times it's been used)
+	    // grabs *just the body* of a prompt, ignoring stuff after DEFAULT: or after other tags we might use (TODO such as COUNT: to count how many times it's been used)
 	    cleaned = cleaned.split(w)[0]
 	}
 	return cleaned
@@ -74,7 +76,7 @@ p = prompts.flatten("#"+promptlist+"#");
 
 // Give a prompt
 prompttext = p.split("DEFAULT:")[0];
-vorpal.log(prompttext)
+//vorpal.log(prompttext)//doing this later
 
 // Note the destination
 dest = p.split(' ')[1];//TODO This only works when the zeroth token is 'to'...
@@ -197,6 +199,8 @@ vorpal.on('gonna_callback', function() {
 });
 
 //vorpal.delimiter('🔀');
+vorpal.parse(process.argv);
+vorpal.log(prompttext)
 
 vorpal
     .show()
